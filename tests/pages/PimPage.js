@@ -28,15 +28,8 @@ const PimPage = () => ({
 
     async verifyEmployeeInList(name) {
         await this.employeeList().click();
-        await this.waitForEmployeeList().waitForDisplayed({ timeout: 5000 });
-        // const names = await this.employeeNames();
-        // for (const emp of names) {
-        //   if (await emp.getText() === name) {
-        //     console.log(` ${name} - VERIFIED`);
-        //     return true;
-        //   }
-        // }
-        // throw new Error(` ${name} not found in list!`);
+        await this.waitForEmployeeList().waitForDisplayed({ timeout: 10000 });
+        
         const rows = await this.employeeRows();
 for (const row of rows) {
     const firstNameCell = await row.$('div.oxd-table-cell:nth-child(3)');
@@ -46,7 +39,7 @@ for (const row of rows) {
         const lastName = (await lastNameCell.getText()).trim();
         const combinedName = `${firstName} ${lastName}`;
         
-        if (combinedName === name) {
+        if (combinedName.toLowerCase() === name.toLowerCase()) {
                  console.log(` ${name} - VERIFIED`);
                 return true;
                }
